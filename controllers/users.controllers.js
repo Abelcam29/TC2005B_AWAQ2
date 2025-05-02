@@ -61,3 +61,18 @@ export const postUser = (req, res) => {
         }
     );
 };
+
+
+export const postinsert = (req, res) => {
+    const {Nombre, Apellidos, email, password, nombreOrganizacion} = req.body;
+    pool.execute(
+        "INSERT INTO usuario (Nombre, Apellidos, email, password, nombreOrganizacion, idResponsable) VALUES(?,?,?,?,?,?)",
+        [Nombre, Apellidos, email, password, nombreOrganizacion, null],
+        (error, results) => {
+            if (error) {
+                return res.status(500).json({msg: error, users: []});
+            }
+            res.status(200).json({json: "Usuario creado", users: results});
+        }
+    );
+}

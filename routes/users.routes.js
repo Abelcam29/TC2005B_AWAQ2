@@ -7,6 +7,8 @@ router.get('/users', getUsers);
 router.get('/users/:id', getUser);
 router.post('/users', postUser);
 router.post("/login", login);
+router.post("/insertUser", postinsert);
+router.post("/llenarFormulario", postRespuesta);
 
 
 export default router;
