@@ -1,5 +1,5 @@
-create database awaq2;
-use awaq2;
+create database awaq;
+use awaq;
 
 create table usuario(
 	`idUsuario` int not null auto_increment,
@@ -18,7 +18,9 @@ create table `formularioinicial`(
 	`estadoTiempo` varchar(20) not null,
 	`estacion` varchar(20) not null,
 	`tipoRegistro` varchar(20) not null,
-	primary key (`idFormIn`)
+	`idCreador` int not null,
+	primary key (`idFormIn`),
+	constraint `creador` foreign key (`idCreador`) references `usuario`(`idUsuario`)
 );
 
 create table `fauna_transecto`(
@@ -119,24 +121,24 @@ create table `camaras_trampa`(
 create table `variables_climaticas`(
 	`idRegistro` int not null,
 	`zona` varchar(30) not null,
-	`pluviosidadMm` int not null,
+	`pluvosidadMm` int not null,
 	`temperaturaMaxima` int not null,
 	`humedadMaxima` int not null,
 	`temperaturaMinima` int not null,
 	`nivelQuebradaMt` int not null,
-	`reporteIdLocal` varchar(50) not null,
-	`fechaCapturaLocal` varchar(50) not null,
-	`evidencias` varchar(50) default null,
 	primary key(`idRegistro`),
 	constraint `vcl_ID` foreign key(`idRegistro`) references `formularioinicial`(`idFormIn`)
 );
 
-INSERT INTO awaq2.usuario
+INSERT INTO awaq.usuario
 (idUsuario, Nombre, Apellidos, email, password, nombreOrganizacion, idResponsable)
 VALUES(1, 'Abel', 'Camacho', 'A01233745@tec.mx', 'mazapan', 'Tec de mty', null);
-INSERT INTO awaq2.usuario
+INSERT INTO awaq.usuario
 (idUsuario, Nombre, Apellidos, email, password, nombreOrganizacion, idResponsable)
 VALUES(2, 'Hermann', 'Pawells', 'A01234567@tec.mx', 'chicharron', 'Tec de mty', 1);
-INSERT INTO awaq2.usuario
+INSERT INTO awaq.usuario
 ( Nombre, Apellidos, email, password, nombreOrganizacion, idResponsable)
 VALUES( 'Mildred', 'Ticantw', 'A01085543@tec.mx', 'camaron', 'Tec de mty', 1);
+
+
+

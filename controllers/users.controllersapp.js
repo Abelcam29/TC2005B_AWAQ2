@@ -92,7 +92,7 @@ export const postvc = (req, res) => {
         evidencias
     } = req.body;
     pool.execute(
-        "INSERT INTO formularioinicial(estadotiempo, estacion, tipoRegistro) VALUES(?,?,?)",
+        "INSERT INTO formularioinicial(estadoTiempo, estacion, tipoRegistro) VALUES(?,?,?)",
         [estadoTiempo, estacion, tipoRegistro],
         (error1, results1) => {
             if(error1){
@@ -101,7 +101,7 @@ export const postvc = (req, res) => {
         const idFormInit = results1.insertId;
 
         pool.execute(
-            "INSERT INTO variables_climaticas (idRegistro, zona, pluvosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt) VALUES (?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO variables_climaticas (idRegistro, zona, pluviosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt, reporteIdLocal, fechaCapturaLocal, evidencias) VALUES (?,?,?,?,?,?,?,?,?,?)",
             [idFormInit, zona, pluviosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt, reporteIdLocal, fechaCapturaLocal, evidencias],
             (error2, results2) => {
                 if (error2) {
