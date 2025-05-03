@@ -81,17 +81,19 @@ export const postvc = (req, res) => {
         estadoTiempo,
         estacion,
         tipoRegistro,
-        idCreador,
         zona,
-        pluvosidadMm,
+        pluviosidadMm,
         temperaturaMaxima,
         humedadMaxima,
         temperaturaMinima,
-        nivelQuebradaMt
+        nivelQuebradaMt,
+        reporteIdLocal,
+        fechaCapturaLocal,
+        evidencias
     } = req.body;
     pool.execute(
-        "INSERT INTO formularioinicial(estadotiempo, estacion, tipoRegistro, idCreador) VALUES(?,?,?,?)",
-        [estadoTiempo, estacion, tipoRegistro, idCreador],
+        "INSERT INTO formularioinicial(estadotiempo, estacion, tipoRegistro) VALUES(?,?,?)",
+        [estadoTiempo, estacion, tipoRegistro],
         (error1, results1) => {
             if(error1){
                 return res.status(500).json({msg: error1, error1: []});
@@ -99,8 +101,8 @@ export const postvc = (req, res) => {
         const idFormInit = results1.insertId;
 
         pool.execute(
-            "INSERT INTO variables_climaticas (idRegistro, zona, pluvosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt) VALUES (?,?,?,?,?,?,?)",
-            [idFormInit, zona, pluvosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt],
+            "INSERT INTO variables_climaticas (idRegistro, zona, pluvosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt) VALUES (?,?,?,?,?,?,?,?,?,?)",
+            [idFormInit, zona, pluviosidadMm, temperaturaMaxima, humedadMaxima, temperaturaMinima, nivelQuebradaMt, reporteIdLocal, fechaCapturaLocal, evidencias],
             (error2, results2) => {
                 if (error2) {
                     return res.status(500).json({msg: error2.message, error2: []});
